@@ -8,7 +8,7 @@
     "dev:stop": "node scripts/kill-dev-ports.mjs",
     "dev:server": "npm run dev --prefix server",
     "dev:client": "npm run dev --prefix client",
-    "postinstall": "npm install --prefix server && npm install --prefix client",
+    "postinstall": "npm install --prefix server && npm install --prefix client --include=dev",
     "build": "npm run build --prefix client",
     "start": "npm run start --prefix server",
     "db:migrate": "npm run db:migrate --prefix server",
