@@ -1,0 +1,294 @@
+/* Ludo Sphere — premium animated logo */
+
+.ls-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.ls-logo--stack {
+  flex-direction: column;
+}
+
+.ls-logo--row {
+  flex-direction: row;
+}
+
+.ls-logo--sm.ls-logo--row {
+  gap: 8px !important;
+}
+
+/* —— Sphere mark —— */
+.ls-sphere-mark {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ls-sphere-svg {
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.45));
+}
+
+.ls-sphere-mark--animated .ls-sphere-svg {
+  animation: ls-sphere-breathe 3.2s ease-in-out infinite;
+}
+
+.ls-sphere-mark--animated .ls-halo {
+  animation: ls-halo-pulse 2.8s ease-in-out infinite;
+}
+
+.ls-dice-float {
+  transform-origin: 50px 50px;
+}
+
+.ls-sphere-mark--animated .ls-dice-float {
+  animation: ls-dice-tilt 4s ease-in-out infinite;
+}
+
+/* Orbiting rings */
+.ls-orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ls-orbit-a {
+  inset: -6%;
+  border-top-color: rgba(255, 183, 77, 0.85);
+  border-right-color: rgba(255, 183, 77, 0.15);
+}
+
+.ls-orbit-b {
+  inset: -14%;
+  border-bottom-color: rgba(0, 229, 255, 0.75);
+  border-left-color: rgba(0, 229, 255, 0.12);
+}
+
+.ls-orbit-c {
+  inset: -22%;
+  border-top-color: rgba(255, 87, 34, 0.35);
+  border-bottom-color: rgba(67, 160, 71, 0.25);
+}
+
+.ls-sphere-mark--animated .ls-orbit-a {
+  animation: ls-spin 5s linear infinite;
+}
+
+.ls-sphere-mark--animated .ls-orbit-b {
+  animation: ls-spin-rev 7.5s linear infinite;
+}
+
+.ls-sphere-mark--animated .ls-orbit-c {
+  animation: ls-spin 11s linear infinite;
+}
+
+/* Sparks */
+.ls-spark {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffe566;
+  box-shadow: 0 0 10px #ffb703;
+  z-index: 3;
+}
+
+.ls-spark-1 { top: 8%; left: 18%; }
+.ls-spark-2 { bottom: 12%; right: 10%; }
+.ls-spark-3 { top: 42%; right: 0; }
+
+.ls-sphere-mark--animated .ls-spark {
+  animation: ls-spark-pulse 1.8s ease-in-out infinite;
+}
+
+.ls-sphere-mark--animated .ls-spark-2 {
+  animation-delay: 0.45s;
+}
+
+.ls-sphere-mark--animated .ls-spark-3 {
+  animation-delay: 0.9s;
+}
+
+/* —— Wordmark —— */
+.ls-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ls-logo--row .ls-wordmark {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.ls-title {
+  font-family: 'Poppins', var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  background: linear-gradient(
+    105deg,
+    #fff 0%,
+    #ffe566 22%,
+    #ffb703 45%,
+    #ff7043 70%,
+    #fff 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 14px rgba(255, 152, 0, 0.45));
+}
+
+.ls-wordmark--animated .ls-title {
+  animation: ls-shimmer 3.5s linear infinite;
+}
+
+.ls-subtitle {
+  margin-top: 3px;
+  font-family: 'Poppins', var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  color: #00e5ff;
+  text-shadow:
+    0 0 12px rgba(0, 229, 255, 0.55),
+    0 0 24px rgba(0, 229, 255, 0.25);
+}
+
+.ls-wordmark--animated .ls-subtitle {
+  animation: ls-sub-glow 2.4s ease-in-out infinite;
+}
+
+.ls-logo--sm .ls-subtitle {
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+}
+
+/* Header compact tweaks */
+.ls-logo--sm .ls-orbit-c {
+  display: none;
+}
+
+.ls-logo--sm .ls-spark {
+  display: none;
+}
+
+/* —— Keyframes —— */
+@keyframes ls-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ls-spin-rev {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes ls-sphere-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes ls-halo-pulse {
+  0%, 100% { opacity: 0.28; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes ls-dice-tilt {
+  0%, 100% { transform: rotate(-4deg) translateY(0); }
+  50% { transform: rotate(4deg) translateY(-1px); }
+}
+
+@keyframes ls-shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 220% center; }
+}
+
+@keyframes ls-sub-glow {
+  0%, 100% { opacity: 0.85; filter: brightness(1); }
+  50% { opacity: 1; filter: brightness(1.15); }
+}
+
+@keyframes ls-spark-pulse {
+  0%, 100% { transform: scale(0.6); opacity: 0.35; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Splash hero sizing */
+.splash-logo-hero-wrap {
+  margin-bottom: 8px;
+}
+
+.splash-logo-hero .ls-sphere-mark {
+  width: 108px !important;
+  height: 108px !important;
+}
+
+.splash-logo-hero .ls-sphere-svg {
+  width: 108px;
+  height: 108px;
+}
+
+.splash-logo-hero .ls-title {
+  font-size: 46px !important;
+  letter-spacing: 0.16em;
+}
+
+.splash-logo-hero .ls-subtitle {
+  font-size: 13px !important;
+  letter-spacing: 0.52em;
+  text-indent: 0.52em;
+  margin-top: 6px;
+}
+
+.splash-logo-hero .ls-orbit-a { inset: -8%; }
+.splash-logo-hero .ls-orbit-b { inset: -16%; }
+.splash-logo-hero .ls-orbit-c { inset: -24%; }
+
+.splash-loader-sphere .splash-loader-core {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  animation: splash-loader-bounce 1.2s ease-in-out infinite;
+}
+
+.splash-loader-sphere .splash-loader-core .ls-sphere-mark {
+  transform: scale(0.72);
+}
+
+.auth-logo-hero {
+  margin-bottom: 4px;
+}
+
+.rush-header-logo {
+  justify-self: center;
+  grid-column: 2;
+  pointer-events: none;
+}
+
+.rush-header-logo .ls-title {
+  font-size: 15px !important;
+  letter-spacing: 0.1em;
+}
+
+.rush-header-logo .ls-subtitle {
+  font-size: 7px !important;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-sphere-mark--animated *,
+  .ls-wordmark--animated * {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,252 @@
+.money-rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10050;
+  overflow: hidden;
+}
+
+/* Opening flash */
+.money-rain-flash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% -5%, rgba(255, 235, 120, 0.55) 0%, transparent 48%),
+    radial-gradient(circle at 50% 20%, rgba(255, 193, 7, 0.25) 0%, transparent 62%);
+  animation: money-rain-flash 0.65s ease-out forwards;
+}
+
+.money-rain-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 193, 7, 0.12) 0%,
+    transparent 35%,
+    transparent 100%
+  );
+  animation: money-rain-glow-fade 1.3s ease-out forwards;
+}
+
+/* Banner pop */
+.money-rain-banner {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.95) 0%, rgba(255, 152, 0, 0.92) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 8px 28px rgba(255, 152, 0, 0.55),
+    0 0 24px rgba(255, 215, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  animation: money-rain-banner-pop 1.3s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  white-space: nowrap;
+}
+
+.money-rain-banner-icon {
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.money-rain-banner-text {
+  font-family: 'Poppins', var(--font-display, system-ui, sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #3e2723;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Burst from top center */
+.money-rain-burst {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 2;
+}
+
+.money-rain-burst-coin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #fffde7 0%, #ffd54f 38%, #ff8f00 78%, #e65100 100%);
+  border: 2px solid #ffb300;
+  box-shadow:
+    inset 0 -2px 5px rgba(0, 0, 0, 0.22),
+    0 3px 10px rgba(255, 193, 7, 0.65);
+  animation: money-rain-burst-out 0.55s cubic-bezier(0.18, 0.89, 0.32, 1.1) forwards;
+}
+
+.money-rain-burst-coin::after {
+  content: '₹';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-size: 45%;
+  font-weight: 800;
+  color: rgba(120, 70, 0, 0.85);
+}
+
+/* Depth layers */
+.money-rain-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.money-rain-layer--back {
+  z-index: 0;
+  filter: blur(1px);
+  opacity: 0.65;
+}
+
+.money-rain-layer--mid {
+  z-index: 1;
+}
+
+.money-rain-layer--front {
+  z-index: 3;
+}
+
+/* Falling items */
+.money-rain-item {
+  position: absolute;
+  top: -14%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  opacity: 0;
+  animation: money-rain-fall 1.3s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+  will-change: transform, opacity;
+}
+
+.money-rain-item--coin {
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #fffde7 0%, #ffd54f 38%, #ff8f00 78%, #e65100 100%);
+  border: 0.08em solid #ffb300;
+  box-shadow:
+    inset 0 -0.12em 0.2em rgba(0, 0, 0, 0.22),
+    0 0.12em 0.35em rgba(255, 193, 7, 0.55);
+}
+
+.money-rain-item--coin::after {
+  content: '₹';
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-size: 0.42em;
+  font-weight: 800;
+  color: rgba(110, 65, 0, 0.9);
+}
+
+.money-rain-item--rupee {
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-weight: 800;
+  color: #ffe082;
+  text-shadow:
+    0 0 12px rgba(255, 193, 7, 0.95),
+    0 2px 0 #b8860b,
+    0 0 2px #fff8e1;
+}
+
+.money-rain-item--rupee::before {
+  content: '₹';
+}
+
+.money-rain-item--spark {
+  width: 0.35em;
+  height: 0.35em;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #ffd54f 55%, transparent 100%);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.95);
+}
+
+/* Keyframes */
+@keyframes money-rain-flash {
+  0% { opacity: 0; }
+  18% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes money-rain-glow-fade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes money-rain-banner-pop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.4) translateY(20px);
+  }
+  18% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.08) translateY(0);
+  }
+  28% {
+    transform: translateX(-50%) scale(1) translateY(0);
+  }
+  72% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.92) translateY(-12px);
+  }
+}
+
+@keyframes money-rain-burst-out {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0) scale(0.2);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(var(--dist)) scale(0.85);
+  }
+}
+
+@keyframes money-rain-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.35);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  30% {
+    transform: translate3d(calc(var(--wobble) * -1), 32vh, 0) rotate(calc(var(--spin) * 0.3)) scale(0.85);
+  }
+  55% {
+    transform: translate3d(var(--wobble), 58vh, 0) rotate(calc(var(--spin) * 0.6)) scale(0.95);
+  }
+  100% {
+    transform: translate3d(var(--drift), 118vh, 0) rotate(var(--spin)) scale(1);
+    opacity: 0;
+  }
+}
+
+.money-rain-layer--front .money-rain-item {
+  filter: drop-shadow(0 4px 10px rgba(255, 152, 0, 0.45));
+}
+
+.money-rain-layer--back .money-rain-item {
+  animation-timing-function: cubic-bezier(0.55, 0.05, 0.85, 0.95);
+}

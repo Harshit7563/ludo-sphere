@@ -1,0 +1,27 @@
+{
+  "name": "ludo-sphere",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Premium multiplayer Ludo game — Ludo Sphere",
+  "scripts": {
+    "dev": "node scripts/kill-dev-ports.mjs && concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:stop": "node scripts/kill-dev-ports.mjs",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client && npm run build --prefix server",
+    "start": "npm run start --prefix server",
+    "db:migrate": "npm run db:migrate --prefix server",
+    "db:seed": "npm run db:seed --prefix server",
+    "db:setup": "npm run db:setup --prefix server",
+    "android:prepare": "npm run android:prepare --prefix client",
+    "android:prepare-usb": "npm run android:prepare-usb --prefix client",
+    "android:build": "npm run android:prepare --prefix client && npm run build:android --prefix client && cd client && npx cap sync android",
+    "android:build-usb": "npm run android:prepare-usb --prefix client && npm run build:android --prefix client && cd client && npx cap sync android",
+    "android:apk": "npm run android:build && cd client/android && ./gradlew assembleDebug",
+    "android:sync": "npm run build:android --prefix client && cd client && npx cap sync android",
+    "android:open": "cd client && npx cap open android"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
