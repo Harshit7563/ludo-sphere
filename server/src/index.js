@@ -2,7 +2,7 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import dotenv from 'dotenv';
+import './loadEnv.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -21,8 +21,6 @@ import kycRoutes from './routes/kyc.js';
 import adminRoutes from './routes/admin.js';
 import headTailRoutes from './routes/headTail.js';
 import appConfigRoutes from './routes/appConfig.js';
-
-dotenv.config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
