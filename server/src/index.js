@@ -26,15 +26,49 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const server = createServer(app);
 
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  'http://localhost:5180',
-  'http://localhost:5173',
-  'http://localhost:5174',
-  'capacitor://localhost',
-  'https://localhost',
-  'http://localhost',
-].filter(Boolean);
+const allowedOrigins = new Set(
+  [
+    process.env.CLIENT_URL,
+    'http://localhost:5180',
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'capacitor://localhost',
+    'https://localhost',
+    'http://localhost',
+  ].filter(Boolean),
+);
+
+/** www + non-www + http/https variants of CLIENT_URL */
+function addClientUrlVariants(set) {
+  const client = process.env.CLIENT_URL;
+  if (!client) return;
+  try {
+    const u = new URL(client);
+    set.add(u.origin);
+    const bare = u.hostname.replace(/^www\./, '');
+    const hosts = [bare, `www.${bare}`];
+    for (const host of hosts) {
+      set.add(`${u.protocol}//${host}`);
+      const alt = u.protocol === 'https:' ? 'http:' : 'https:';
+      set.add(`${alt}//${host}`);
+    }
+  } catch {
+    set.add(client);
+  }
+}
+addClientUrlVariants(allowedOrigins);
+
+function hostMatchesClientUrl(origin) {
+  if (!process.env.CLIENT_URL || !origin) return false;
+  try {
+    const allowed = new URL(process.env.CLIENT_URL);
+    const req = new URL(origin);
+    const strip = (h) => h.replace(/^www\./, '');
+    return strip(allowed.hostname) === strip(req.hostname);
+  } catch {
+    return false;
+  }
+}
 
 /** Allow phone/emulator hitting dev server on LAN IP */
 function isDevLanOrigin(origin) {
@@ -43,12 +77,20 @@ function isDevLanOrigin(origin) {
 }
 
 function corsOrigin(origin, callback) {
-  if (!origin || allowedOrigins.includes(origin) || isDevLanOrigin(origin)) {
+  if (
+    !origin
+    || allowedOrigins.has(origin)
+    || isDevLanOrigin(origin)
+    || hostMatchesClientUrl(origin)
+  ) {
     callback(null, true);
   } else {
+    console.warn('[cors] blocked origin:', origin);
     callback(null, false);
   }
 }
+
+app.set('trust proxy', 1);
 
 const io = new Server(server, {
   cors: {

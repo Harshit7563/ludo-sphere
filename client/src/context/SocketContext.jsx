@@ -68,7 +68,9 @@ export function SocketProvider({ children }) {
       setSocketError(
         err?.message?.includes('Authentication')
           ? 'Session expired. Please login again.'
-          : 'Cannot reach game server. Run: npm run dev'
+          : import.meta.env.DEV
+            ? 'Cannot reach game server. Run: npm run dev'
+            : 'Cannot connect to game server. Check your connection or try again.'
       );
     };
 

@@ -129,6 +129,18 @@ server {
     listen 80;
     server_name ludosphere.in www.ludosphere.in;
 
+    location /socket.io/ {
+        proxy_pass http://127.0.0.1:4001/socket.io/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 86400;
+    }
+
     location / {
         proxy_pass http://127.0.0.1:4001;
         proxy_http_version 1.1;
@@ -142,6 +154,14 @@ server {
     }
 }
 ```
+
+`server/.env` must include:
+
+```env
+CLIENT_URL=https://ludosphere.in
+```
+
+(Use `https://www.ludosphere.in` only if users always open the www URL.)
 
 Enable site:
 
